@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <mat-form-field>
+      <input matInput placeholder="Search TV Shows" [(ngModel)]="searchQuery">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="search()">Search</button>
+  </mat-toolbar>
+  
+  <div *ngIf="searchResults.length > 0; else noResults">
+    <mat-card *ngFor="let show of searchResults">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <img [src]="show.image.medium" alt="Show Poster">
+        </div>
+        <mat-card-title>{{ show.name }}</mat-card-title>
+        <mat-card-subtitle>{{ show.type }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ show.summary }}</p>
+        <p>Language: {{ show.language }}</p>
+        <p>Genres: {{ show.genres.join(', ') }}</p>
+        <p>Status: {{ show.status }}</p>
+        <p>Schedule: {{ show.schedule.time }} ({{ show.schedule.days.join(', ') }})</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <ng-template #noResults>
+    <p>No results found.</p>
+  </ng-template>
+  
